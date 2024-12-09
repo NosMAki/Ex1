@@ -1,4 +1,14 @@
 public class Ex1 {
+
+    public static void main(String[] args) {
+        if (isNumber("AbG")) {
+            System.out.println("True");
+        } else {
+            System.out.println("False");
+        }
+    }
+
+
     public static int number2Int(String num) {
         int ans = -1;
         // add your code here
@@ -14,7 +24,7 @@ public class Ex1 {
         if (Input == null || Input.isEmpty()) {
             return false;
         }
-        // here we check if the input itself isn't just b since that's my inedx
+        // here we check if the input itself isn't just b since that's my index
         if (Input.equals("b")){
             return false;
         }
@@ -40,7 +50,7 @@ public class Ex1 {
             }
             // now we split the String into number part and base part
             String numberPart = Input.substring(0,indexB);
-            String basePart = Input.substring(indexB,+ 1);
+            String basePart = Input.substring(indexB+ 1);
 
             // here we validate the number part that it contain only digits or A-G
             for (int i = 0; i < numberPart.length(); i++){
@@ -55,7 +65,21 @@ public class Ex1 {
             if (!(baseChar >= '2' && baseChar <= '9') && !(baseChar >= 'A' && baseChar <= 'G')) {
                 return false;
             }
+            // here we validate that the number part is valid for the given base
+            int base = Character.digit(baseChar, 17);
+            for (int i = 0; i < numberPart.length(); i++){
+                char ch = numberPart.charAt(i);
 
+                // of the base is less than 10 only digits from 0 to base - 1 are valid
+                if (base <= 10 && (ch < '0' || ch >= ('0' + base))){
+                    return false;
+                }
+
+                // if the base is greater than 10 only allow digits 0-9 and A - (base - 10)
+                if (base > 10 && !(Character.isDigit(ch) || ch >= 'A' && ch < 'A' + (base - 10 ))){
+                    return false;
+                }
+            }
             return ans; // if all the checks passed the input is valid
 
         }
