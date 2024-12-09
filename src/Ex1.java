@@ -1,23 +1,4 @@
-
-/**
- * This class represents a simple solution for Ex1.
- * As defined here: https://docs.google.com/document/d/1AJ9wtnL1qdEs4DAKqBlO1bXCM6r6GJ_J/r/edit/edit
- * In this assignment, we will design a number formatting converter and calculator.
- * In general, we will use Strings as numbers over basis of binary till Hexa.
- * [2-16], 10-16 are represented by A,B,..G.
- * The general representation of the numbers is as a String with the following format:
- * <number><b><base> e.g., “135bA” (i.e., “135”, as 10 is the default base), “100111b2”, “12345b6”,”012b5”, “123bG”, “EFbG”.
- * The following are NOT in the format (not a valid number):
- * “b2”, “0b1”, “123b”, “1234b11”, “3b3”, “-3b5”, “3 b4”, “GbG”, "", null,
- * You should implement the following static functions:
- */
 public class Ex1 {
-    /**
-     * Convert the given number (num) to a decimal representation (as int).
-     * It the given number is not in a valid format returns -1.
-     * @param num a String representing a number in basis [2,16]
-     * @return
-     */
     public static int number2Int(String num) {
         int ans = -1;
         // add your code here
@@ -25,27 +6,62 @@ public class Ex1 {
         ////////////////////
         return ans;
     }
-    /**
-     * This static function checks if the given String (g) is in a valid "number" format.
-     * @param a a String representing a number
-     * @return true iff the given String is in a number format
-     */
-    public static boolean isNumber(String a) {
-        boolean ans = true;
-        // add your code here
 
-        ////////////////////
-        return ans;
+    // this function checks if the Input by the user is by the correct standards of (<number><b><base>)
+    public static boolean isNumber(String Input) {
+        boolean ans = true;
+        // here we check if the Input is either null or empty
+        if (Input == null || Input.isEmpty()) {
+            return false;
+        }
+        // here we check if the input itself isn't just b since that's my inedx
+        if (Input.equals("b")){
+            return false;
+        }
+        int indexB = Input.indexOf('b');
+
+        if (indexB == -1) {
+            // take the number as base 10 since there is no b in on user input
+            String numberPart = Input;
+
+            //this loop goes through the number part and checks if the char
+            //at place i is a digit or not if not continue to the next char
+            for (int i = 0; i < numberPart.length(); i++){
+                if (!Character.isDigit(numberPart.charAt(i))){
+                    return false;
+                }
+            }
+            // the number passed the test and is a valid decimal num
+            return true;
+        } else {
+            // checks the string to make sure the first and last chars are not b
+            if (indexB == 0 || indexB == Input.length() -1 ){
+                return false;
+            }
+            // now we split the String into number part and base part
+            String numberPart = Input.substring(0,indexB);
+            String basePart = Input.substring(indexB,+ 1);
+
+            // here we validate the number part that it contain only digits or A-G
+            for (int i = 0; i < numberPart.length(); i++){
+                char ch = numberPart.charAt(i);
+                if (!Character.isDigit(ch) && (ch < 'A' || ch > 'G')){
+                    return false;
+                }
+            }
+            // here we validate the base part under the same conditions
+            // since the base has only one char we can just check it directly instead of using a loop
+            char baseChar = basePart.charAt(0);
+            if (!(baseChar >= '2' && baseChar <= '9') && !(baseChar >= 'A' && baseChar <= 'G')) {
+                return false;
+            }
+
+            return ans; // if all the checks passed the input is valid
+
+        }
+
     }
 
-    /**
-     * Calculate the number representation (in basis base)
-     * of the given natural number (represented as an integer).
-     * If num<0 or base is not in [2,16] the function should return "" (the empty String).
-     * @param num the natural number (include 0).
-     * @param base the basis [2,16]
-     * @return a String representing a number (in base) equals to num, or an empty String (in case of wrong input).
-     */
     public static String int2Number(int num, int base) {
         String ans = "";
         // add your code here
@@ -54,12 +70,6 @@ public class Ex1 {
         return ans;
     }
 
-    /**
-     * Checks if the two numbers have the same value.
-     * @param n1 first number
-     * @param n2 second number
-     * @return true iff the two numbers have the same values.
-     */
     public static boolean equals(String n1, String n2) {
         boolean ans = true;
         // add your code here
@@ -68,14 +78,6 @@ public class Ex1 {
         return ans;
     }
 
-    /**
-     * This static function search for the array index with the largest number (in value).
-     * In case there are more than one maximum - returns the first index.
-     * Note: you can assume that the array is not null and is not empty, yet it may contain null or none-valid numbers (with value -1).
-     * @param arr an array of numbers
-     * @return the index in the array in with the largest number (in value).
-     *
-     */
     public static int maxIndex(String[] arr) {
         int ans = 0;
         // add your code here
