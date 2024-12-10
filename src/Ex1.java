@@ -1,7 +1,8 @@
 public class Ex1 {
 
     public static void main(String[] args) {
-        if (isNumber("AbG")) {
+        if (isNumber("1bG")) {
+
             System.out.println("True");
         } else {
             System.out.println("False");
@@ -9,11 +10,16 @@ public class Ex1 {
     }
 
 
-    public static int number2Int(String num) {
+    public static int number2Int(String Input) {
         int ans = -1;
-        // add your code here
 
-        ////////////////////
+        // checking if the number is valid by running it through the isNumber function
+        if (!isNumber(Input)){
+            return ans;
+        }
+        int indexB = Input.indexOf('b');
+        String numberPart = Input.substring(0,indexB);
+        String basePart = Input.substring(indexB+ 1);
         return ans;
     }
 
@@ -88,9 +94,27 @@ public class Ex1 {
 
     public static String int2Number(int num, int base) {
         String ans = "";
-        // add your code here
 
-        ////////////////////
+        // here we check if the input is valid and if not we return an empty string
+        if (num < 0 || base < 2 || base > 16 ){
+            return ans;
+        }
+
+        // here we add an edge case for 0 since 0 stays the same in any base
+        if (num == 0){
+            return "0";
+        }
+
+        // here we make a sort of lookup table for converting numeric value
+        // mainly for digits over 10 (ie: A = 10 , F =  16)
+        String digits = "0123456789ABCDF";
+
+        while ( num > 0) {
+            int remainder = num % base; // using mod we take the remainder
+            ans = digits.charAt(remainder) + ans; // map the remainder to the corresponding char and prepend
+            num = num / base; // reduce the number by dividing by the base to continue the loop
+        }
+
         return ans;
     }
 
