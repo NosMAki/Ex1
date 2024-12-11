@@ -1,7 +1,7 @@
 public class Ex1 {
 
     public static void main(String[] args) {
-        if (isNumber("1011b2")) {
+        if (isNumber("AAbB")) {
 
             System.out.println("True");
         } else {
@@ -81,11 +81,6 @@ public class Ex1 {
             String numberPart = Input.substring(0,indexB);
             String basePart = Input.substring(indexB+ 1);
 
-            // checks to make sure the base part will only contain one char
-            if (basePart.length() != 1){
-                return false;
-            }
-
             // here we validate the number part that it contain only digits or A-G
             for (int i = 0; i < numberPart.length(); i++){
                 char ch = numberPart.charAt(i);
@@ -99,6 +94,7 @@ public class Ex1 {
             if (!(baseChar >= '2' && baseChar <= '9') && !(baseChar >= 'A' && baseChar <= 'G')) {
                 return false;
             }
+
             // here we validate that the number part is valid for the given base
             int base = Character.digit(baseChar, 17);
             for (int i = 0; i < numberPart.length(); i++){
@@ -109,7 +105,7 @@ public class Ex1 {
                     return false;
                 }
 
-                // if the base is greater than 10 only allow digits 0-9 and A - (base - 10)
+                // if the base is greater than 10 only allow digits 0-9 and A - G (base - 10)
                 if (base > 10 && !(Character.isDigit(ch) || ch >= 'A' && ch < 'A' + (base - 10 ))){
                     return false;
                 }
@@ -133,24 +129,32 @@ public class Ex1 {
             return "0";
         }
 
-        // here we make a sort of lookup table for converting numeric value
-        // mainly for digits over 10 (ie: A = 10 , F =  16)
-        String digits = "0123456789ABCDEF";
+        // here we convert from decimal to the wanted base
         StringBuilder result = new StringBuilder();
         while ( num > 0) {
-            int remainder = num % base; // using mod we take the remainder
-            result.insert(0, digits.charAt(remainder)); // map the remainder to the corresponding char and prepend
-            num = num / base; // reduce the number by dividing by the base to continue the loop
+            int remainder = num % base;
+            result.insert(0, remainder);
+            num = num / base;
         }
 
-        return result.toString() + "b" + base; // added b and base to the string to show every parsed number as base 10
+        // after blood sweat and tears (many tears) a function that converts the base part into letters
+        char baseRepresentation = base <= 9
+            ? (char)('0' + base )
+            : (char)('A' + base - 10);
+
+        return result.toString() + "b" + baseRepresentation; // added b and base to the string to show every parsed number as base 10
+
+
     }
 
     public static boolean equals(String n1, String n2) {
-        boolean ans = true;
-        // add your code here
+        boolean ans = false;
 
-        ////////////////////
+        int n1Int = number2Int(n1);
+        int n2Int = number2Int(n2);
+        if (n1Int == n2Int){
+            return true;
+        }
         return ans;
     }
 
