@@ -35,7 +35,14 @@ public class Ex1Test {
         }
         @Test
         void int2NumberTest() {
-           // implement this test
+        assertEquals("1011b2", Ex1.int2Number(11,2));
+            assertEquals("10bB", Ex1.int2Number(10,12));
+
+
+
+
+
+
         }
         @Test
         void maxIndexTest() {

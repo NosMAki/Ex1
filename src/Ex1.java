@@ -24,18 +24,21 @@ public class Ex1 {
         }
         // making an index again to split the string into 2 substrings
         int indexB = Input.indexOf('b');
+
         String numberPart = Input.substring(0,indexB);
         String basePart = Input.substring(indexB+ 1);
 
+
+
         // convert the basePart into an int
-        int base = Character.digit(basePart.charAt(0) , 16); // convert the base into the int
+        int base = Character.digit(basePart.charAt(0) , 17); // convert the base into the int
         if (base < 2 || base > 16){
             return ans;
         }
 
 
         // we use parseInt to convert the numberPart to a decimal int
-        try { ans =Integer.parseInt(numberPart , base);
+        try { ans = Integer.parseInt(numberPart , base);
         } catch (NumberFormatException e) {
             return -1;
         }
@@ -132,15 +135,15 @@ public class Ex1 {
 
         // here we make a sort of lookup table for converting numeric value
         // mainly for digits over 10 (ie: A = 10 , F =  16)
-        String digits = "0123456789ABCDF";
-
+        String digits = "0123456789ABCDEF";
+        StringBuilder result = new StringBuilder();
         while ( num > 0) {
             int remainder = num % base; // using mod we take the remainder
-            ans = digits.charAt(remainder) + ans; // map the remainder to the corresponding char and prepend
+            result.insert(0, digits.charAt(remainder)); // map the remainder to the corresponding char and prepend
             num = num / base; // reduce the number by dividing by the base to continue the loop
         }
 
-        return ans;
+        return result.toString() + "b" + base; // added b and base to the string to show every parsed number as base 10
     }
 
     public static boolean equals(String n1, String n2) {
