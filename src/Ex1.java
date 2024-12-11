@@ -1,7 +1,7 @@
 public class Ex1 {
 
     public static void main(String[] args) {
-        if (isNumber("1bG")) {
+        if (isNumber("1011b2")) {
 
             System.out.println("True");
         } else {
@@ -10,6 +10,11 @@ public class Ex1 {
     }
 
 
+    /**
+     *
+     * @param Input
+     * @return
+     */
     public static int number2Int(String Input) {
         int ans = -1;
 
@@ -17,15 +22,30 @@ public class Ex1 {
         if (!isNumber(Input)){
             return ans;
         }
+        // making an index again to split the string into 2 substrings
         int indexB = Input.indexOf('b');
         String numberPart = Input.substring(0,indexB);
         String basePart = Input.substring(indexB+ 1);
+
+        // convert the basePart into an int
+        int base = Character.digit(basePart.charAt(0) , 16); // convert the base into the int
+        if (base < 2 || base > 16){
+            return ans;
+        }
+
+
+        // we use parseInt to convert the numberPart to a decimal int
+        try { ans =Integer.parseInt(numberPart , base);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
         return ans;
     }
 
     // this function checks if the Input by the user is by the correct standards of (<number><b><base>)
     public static boolean isNumber(String Input) {
         boolean ans = true;
+
         // here we check if the Input is either null or empty
         if (Input == null || Input.isEmpty()) {
             return false;
@@ -41,7 +61,7 @@ public class Ex1 {
             String numberPart = Input;
 
             //this loop goes through the number part and checks if the char
-            //at place i is a digit or not if not continue to the next char
+            //at place I is a digit or not if not continue to the next char
             for (int i = 0; i < numberPart.length(); i++){
                 if (!Character.isDigit(numberPart.charAt(i))){
                     return false;
@@ -57,6 +77,11 @@ public class Ex1 {
             // now we split the String into number part and base part
             String numberPart = Input.substring(0,indexB);
             String basePart = Input.substring(indexB+ 1);
+
+            // checks to make sure the base part will only contain one char
+            if (basePart.length() != 1){
+                return false;
+            }
 
             // here we validate the number part that it contain only digits or A-G
             for (int i = 0; i < numberPart.length(); i++){
