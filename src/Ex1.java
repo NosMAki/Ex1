@@ -1,7 +1,7 @@
 public class Ex1 {
 
     public static void main(String[] args) {
-        if (isNumber("10b")) {
+        if (isNumber("10b17")) {
 
             System.out.println("True");
         } else {
@@ -135,7 +135,7 @@ public class Ex1 {
 
         // here we add an edge case for 0 since 0 stays the same in any base
         if (num == 0) {
-            return "0";
+            return "0" + "b" +base;
         }
 
         // here we convert from decimal to the wanted base

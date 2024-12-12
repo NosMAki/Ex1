@@ -6,7 +6,9 @@ import java.util.Scanner;
  *
  */
 public class Ex1Main {
+
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         String num1 = "", num2 = "", quit = "quit";
         while (true) {
@@ -60,7 +62,7 @@ public class Ex1Main {
 
             String[] results = {num1 , num2 , addSumStr, multSumStr};
             int maxIdx = Ex1.maxIndex(results);
-            System.out.println("Max number over " + java.util.Arrays.toString(results));
+            System.out.println("Max number over " + java.util.Arrays.toString(results) + " is: " + maxIdx);
         }
     }
 }

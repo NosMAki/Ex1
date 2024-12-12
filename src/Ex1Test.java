@@ -32,22 +32,48 @@ public class Ex1Test {
                 boolean not_ok = Ex1.isNumber(not_good[i]);
                 assertFalse(not_ok);
             }
+            // tests to make sure input is valid
+            assertTrue(Ex1.isNumber("1"));
+            assertTrue(Ex1.isNumber("10b2"));
+            assertTrue(Ex1.isNumber("123bA"));
+            assertTrue(Ex1.isNumber("ABbG"));
+            assertTrue(Ex1.isNumber("0bA"));
+
+            // tests to make sure that invalid input won't work
+            assertFalse(Ex1.isNumber(""));
+            assertFalse(Ex1.isNumber("b"));
+            assertFalse(Ex1.isNumber("123b17"));
+            assertFalse(Ex1.isNumber("123Z"));
+            assertFalse(Ex1.isNumber("123bZ"));
         }
         @Test
         void int2NumberTest() {
-        assertEquals("1011b2", Ex1.int2Number(11,2));
+            // testing valid conversions
+            assertEquals("1011b2", Ex1.int2Number(11,2));
+            assertEquals("0b2", Ex1.int2Number(0, 2));
+            assertEquals("123bA", Ex1.int2Number(123, 10));
+            assertEquals("1b2", Ex1.int2Number(1, 2));
 
-
-
-
-
-
+            // testing invalid conversions
+            assertEquals("", Ex1.int2Number(-1, 10));
+            assertEquals("", Ex1.int2Number(10, 1));
+            assertEquals("", Ex1.int2Number(10, 17));
 
         }
         @Test
         void maxIndexTest() {
-            // implement this test
+            // testing Valid arrays
+            String[] validArray = {"101b2", "AAbB", "FFbG", "10b2"};
+            assertEquals(2, Ex1.maxIndex(validArray));
+
+            // testing both valid and invalid in the same array
+            String[] mixedArray = {"123b2", "MyLittleEasterEgg", "0b2", "FFbG"};
+            assertEquals(3, Ex1.maxIndex(mixedArray));
+
+            // testing invalid arrays
+            String[] invalidArray = {"WhoCould", "Itbe", "Now"};
+            assertEquals(-1, Ex1.maxIndex(invalidArray));
         }
 
-        // Add additional test functions - test as much as you can.
+
     }
